@@ -1,0 +1,102 @@
+import React, {useState, useEffect} from 'react'
+import InventoryListItem from './InventoryListItem';
+import AddDumpster from './AddDumpster'
+const Inventory = () => {
+
+    // state for list of dumpsters
+    const [dumpsterList, setDumpsterList] = useState([]);
+    const [allDumpstersErrorMessage, setAllDumpstersErrorMessage] = useState('');
+    const [addDumpstersErrorMessage, setAddDumpstersErrorMessage] = useState('');
+
+    // fetch all dumpsters in useEffect
+    useEffect( () => {
+         const fetchAllDumpsters = async () => {
+            try{
+                // Fetch all dumpsters
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/dumpsters`);
+                console.log('response:', response);
+                // Check if the response was successful
+                
+                // Parse json response
+                const data = await response.json();
+                    console.log('all dumpsters', data)
+                if(data.errorMessage){
+                    throw Error(data.errorMessage);
+                } else{
+                    setAllDumpstersErrorMessage('');
+                    setDumpsterList(data.message);
+                }
+            // Set error message to display to users what went wrong.
+            }catch(err){
+                setAllDumpstersErrorMessage(err.message);
+            }
+        }
+         fetchAllDumpsters();
+
+
+
+    }, []);
+
+    // Create the "table" header for the rows that are being displayed for the list of dumpsters
+    const tableHeader = ((
+        <div className= 'inventory-row row-header'>
+            <div>Dumpster Number</div>
+            <div>Size</div>
+            <div>Active</div>
+        </div>         
+    ));
+    // Create the rows to be displayed about each dumpster
+    let tableRows;
+    if(Array.isArray(dumpsterList) && dumpsterList.length > 0){
+        tableRows = dumpsterList.map( (row) => {
+                return (<InventoryListItem key= {row.id} id= {row.id} size= {row.size} isActive= {row.is_active} header={false}/>)
+            });
+    }
+
+    //Event handler for adding a dumpster
+    const onAddDumpster = async (size) => {
+
+        try{
+
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({size})
+            }
+            const addResponse = await fetch(`${process.env.REACT_APP_API_URL}/dumpsters`, options);
+            const addData = await addResponse.json();
+            console.log('pre');
+            // Check for any errors from the server
+            if(addData.errorMessage) throw new Error(addData.errorMessage);
+            console.log('post');
+            // Update state for dumpsters and remove possible previous error messages
+            
+            setAddDumpstersErrorMessage('');
+            console.log('addData', addData.message)
+            setDumpsterList((prevList) => [...prevList, addData.message])
+            return 'Success!';
+            return 
+        }catch(err){
+            setAddDumpstersErrorMessage(err.errorMessage);
+            return;
+        }
+    }
+
+  return (
+
+    <>
+        <h2>Inventory And Pricing</h2>
+        <AddDumpster onAddDumpster= {onAddDumpster} addDumpstersErrorMessage= {addDumpstersErrorMessage}/>
+        <div>search</div>
+        {tableHeader}
+        <div>
+            {tableRows}
+        </div>
+       {/* This will print error{allDumpstersErrorMessage.length > 0 ? (<div>{allDumpstersErrorMessage}</div>): (<></>)}  */}
+    </>
+  )
+}
+
+export default Inventory;
