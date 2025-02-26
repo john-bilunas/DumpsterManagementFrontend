@@ -41,7 +41,7 @@ const InventoryListItem = (props) => {
 
 
   return (
-    <div className= 'inventory-row'>
+    <div className= 'table-row inventory-row'>
         <div>{id}</div>
         <div>{size}</div>
         <div>

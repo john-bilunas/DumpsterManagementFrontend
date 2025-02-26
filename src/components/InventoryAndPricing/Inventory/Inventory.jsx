@@ -39,7 +39,7 @@ const Inventory = () => {
 
     // Create the "table" header for the rows that are being displayed for the list of dumpsters
     const tableHeader = ((
-        <div className= 'inventory-row row-header'>
+        <div className= 'table-row row-header'>
             <div>Dumpster Number</div>
             <div>Size</div>
             <div>Active</div>
@@ -77,7 +77,6 @@ const Inventory = () => {
             console.log('addData', addData.message)
             setDumpsterList((prevList) => [...prevList, addData.message])
             return 'Success!';
-            return 
         }catch(err){
             setAddDumpstersErrorMessage(err.errorMessage);
             return;
@@ -86,16 +85,17 @@ const Inventory = () => {
 
   return (
 
-    <>
+    <div className= 'inventory-and-pricing-containers'>
         <h2>Inventory And Pricing</h2>
         <AddDumpster onAddDumpster= {onAddDumpster} addDumpstersErrorMessage= {addDumpstersErrorMessage}/>
-        <div>search</div>
-        {tableHeader}
-        <div>
-            {tableRows}
+
+        <div className= 'table-container'>
+            {tableHeader}
+            <div>
+                {tableRows}
+            </div>
         </div>
-       {/* This will print error{allDumpstersErrorMessage.length > 0 ? (<div>{allDumpstersErrorMessage}</div>): (<></>)}  */}
-    </>
+    </div>
   )
 }
 
