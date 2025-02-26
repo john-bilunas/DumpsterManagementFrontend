@@ -39,7 +39,7 @@ const Inventory = () => {
 
     // Create the "table" header for the rows that are being displayed for the list of dumpsters
     const tableHeader = ((
-        <div className= 'table-row row-header'>
+        <div className= 'table-row row-header inventory-row'>
             <div>Dumpster Number</div>
             <div>Size</div>
             <div>Active</div>
@@ -86,7 +86,7 @@ const Inventory = () => {
   return (
 
     <div className= 'inventory-and-pricing-containers'>
-        <h2>Inventory And Pricing</h2>
+        <h2>Inventory</h2>
         <AddDumpster onAddDumpster= {onAddDumpster} addDumpstersErrorMessage= {addDumpstersErrorMessage}/>
 
         <div className= 'table-container'>

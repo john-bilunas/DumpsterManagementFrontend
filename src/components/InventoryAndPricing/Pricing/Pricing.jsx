@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import InventoryListItem from '../Inventory/InventoryListItem';
+import PricingItem from './PricingItem';
 import AddItem from '../Pricing/AddItem'
 
 const Pricing = () => {
@@ -12,6 +13,7 @@ const Pricing = () => {
     const [allItemCategoriesErrorMessage, setallItemCategoriesErrorMessage] = useState('');
     const [allItemsErrorMessage, setAllItemsErrorMessage] = useState('');
     const [addItemErrorMessage, setAddItemErrorMessage] = useState('');
+    const [updateItemErrorMessage, setUpdateItemErrorMessage] = useState('');
 
     // fetch all dumpsters in useEffect
     useEffect( () => {
@@ -19,15 +21,14 @@ const Pricing = () => {
             try{
                 // Fetch all dumpsters
                 const response = await fetch(`${process.env.REACT_APP_API_URL}/items`);
-                console.log('response:', response);
                 // Check if the response was successful
                 
                 // Parse json response
                 const data = await response.json();
-                    console.log('all items', data)
                 if(data.errorMessage){
                     throw Error(data.errorMessage);
                 } else{
+                    setItemList(data.message);
                     setAllItemsErrorMessage('');
                     setAddItemErrorMessage(data.message);
                 }
@@ -48,10 +49,8 @@ const Pricing = () => {
            try{
                // Fetch all dumpsters
                const response = await fetch(`${process.env.REACT_APP_API_URL}/itemCategories`);
-               console.log('response:', response);   
                // Parse json response
                const data = await response.json();
-                   console.log('all item categories', data)
                // Check if the response was successful
                if(data.errorMessage){
                    throw Error(data.errorMessage);
@@ -67,55 +66,32 @@ const Pricing = () => {
         fetchAllItemCategories();
    }, []);
 
-    // Create the "table" header for the rows that are being displayed for the list of dumpsters
-    // const tableHeader = ((
-    //     <div className= 'table-row row-header'>
-    //         <div>Name</div>
-    //         <div>Price</div>
-    //         <div>Current</div>
-    //     </div>         
-    // ));
+    // Event Handler for Archiving items that have changed price.
+    const onChangeActiveStatus = async ({current, id}) => {
+        try{
 
+            const options = {
+                method: 'PATCH',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({current})
+            }
 
-    // Create the rows to be displayed about each dumpster
-    // let tableRows;
-    // if(Array.isArray(itemList) && itemList.length > 0){
-    //     tableRows = itemList.map( (row) => {
-    //             return (<InventoryListItem key= {row.id} id= {row.id} name= {row.name} price= {row.price} categoryId= {row.category_id} current= {row.current} header={false}/>)
-    //         });
-    // }
-
-    //Event handler for adding a dumpster
-    // const onAddItem = async ({name, price, current, category_id}) => {
-
-    //     try{
-
-    //         const options = {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-type': 'application/json'
-    //             },
-    //             body: JSON.stringify({name, price, current, category_id})
-    //         }
-    //         const addResponse = await fetch(`${process.env.REACT_APP_API_URL}/items`, options);
-    //         const addData = await addResponse.json();
-    //         console.log('pre');
-    //         // Check for any errors from the server
-    //         if(addData.errorMessage) throw new Error(addData.errorMessage);
-    //         console.log('post');
-    //         // Update state for dumpsters and remove possible previous error messages
-            
-    //         setAddItemErrorMessage('');
-    //         console.log('addData', addData.message)
-    //         setItemList((prevList) => [...prevList, addData.message])
-    //         return 'Success!';
-    //     }catch(err){
-    //         setAddItemErrorMessage(err.errorMessage);
-    //         return;
-    //     }
-    // }
-
-    //Event handler for adding a dumpster
+            const updateResponse = await fetch(`${process.env.REACT_APP_API_URL}/items/${id}`, options);
+            const updatedData = await updateResponse.json();
+            // Check if there was an error on the server
+            if(updatedData.errorMessage) throw new Error(updatedData.errorMessage);
+            // Remove any previous errors
+            setUpdateItemErrorMessage(''); 
+            setItemList((prev) => {  return prev.filter( (items) => { return items.id !== id})})
+        }catch(err){
+            //  Set error string for adding a dumpster
+            setUpdateItemErrorMessage(err.errorMessage);
+        }
+        
+    };
+    //Event handler for adding an item
     const onAddItem = async ({name, price, current, category_id}) => {
 
         try{
@@ -133,27 +109,45 @@ const Pricing = () => {
             if(addData.errorMessage) throw new Error(addData.errorMessage);
             // Update state for dumpsters and remove possible previous error messages
             setAddItemErrorMessage('');
-            console.log('addItemData', addData.message)
             setItemList((prevList) => [...prevList, addData.message])
             return 'Success!';
         }catch(err){
             setAddItemErrorMessage(err.errorMessage);
             return;
         }
+    }   
+
+    // Create the "table" header for the rows that are being displayed for the list of dumpsters
+    const tableHeader = ((
+        <div className= 'table-row row-header inventory-row'>
+            <div>Name</div>
+            <div>Price</div>
+            <div>Current</div>
+        </div>         
+    ));
+
+
+    // Create the rows to be displayed about each dumpster
+    let tableRows;
+    if(Array.isArray(itemList) && itemList.length > 0){
+        tableRows = itemList.filter( (el) => el.current === 1).map( (row) => {
+                return (<PricingItem key= {row.id} id= {row.id} name= {row.name} price= {row.price} categoryId= {row.category_id} current= {row.current} header={false} onChangeActiveStatus= {onChangeActiveStatus}/>)
+            });
     }
+
 
   return (
 
     <div className= 'inventory-and-pricing-containers'>
-        <h2>Inventory And Pricing</h2>
+        <h2>Pricing</h2>
         <AddItem allItemCategoriesList= {allItemCategoriesList} onAddItem= {onAddItem}/>
 
-        {/* <div className= 'table-container'>
+        <div className= 'table-container'>
             {tableHeader}
             <div>
                 {tableRows}
             </div>
-        </div> */}
+        </div>
     </div>
   )
 }
