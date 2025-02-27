@@ -14,8 +14,8 @@ const AddItem = ({allItemCategoriesList, onAddItem}) => {
 
         console.log({name, price, current, categoryId})
         return (
-          <div id= "add-form">
-              <form>
+          <div className= "add-form">
+              <form id= "add-item">
                 {/* name, price, current, category_id */}
                   <div className= 'inputs'>
                     <div className="input">

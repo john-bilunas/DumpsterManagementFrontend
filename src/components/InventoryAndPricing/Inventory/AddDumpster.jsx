@@ -7,8 +7,8 @@ const AddDumpster = ({onAddDumpster, addDumpstersErrorMessage}) => {
     console.log(size)
     console.log(addDumpstersErrorMessage)
   return (
-    <div id= "add-form">
-        <form>
+    <div  className= "add-form">
+        <form id= "add-dumpster">
             {/* name, price, current, category_id */}
             <div className= 'inputs'>
                 <div className="input">

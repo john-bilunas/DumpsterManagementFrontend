@@ -122,7 +122,7 @@ const Pricing = () => {
         <div className= 'table-row row-header inventory-row'>
             <div>Name</div>
             <div>Price</div>
-            <div>Current</div>
+            <div>Archive</div>
         </div>         
     ));
 
@@ -138,10 +138,11 @@ const Pricing = () => {
 
   return (
 
-    <div className= 'inventory-and-pricing-containers'>
+    <div className= 'individual-inventory-and-pricing-containers surface'>
         <h2>Pricing</h2>
-        <AddItem allItemCategoriesList= {allItemCategoriesList} onAddItem= {onAddItem}/>
-
+        <div className="center">
+            <AddItem allItemCategoriesList= {allItemCategoriesList} onAddItem= {onAddItem}/>
+        </div>
         <div className= 'table-container'>
             {tableHeader}
             <div>

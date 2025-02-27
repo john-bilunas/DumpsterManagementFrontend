@@ -85,10 +85,12 @@ const Inventory = () => {
 
   return (
 
-    <div className= 'inventory-and-pricing-containers'>
+    <div className= 'individual-inventory-and-pricing-containers surface'>
         <h2>Inventory</h2>
-        <AddDumpster onAddDumpster= {onAddDumpster} addDumpstersErrorMessage= {addDumpstersErrorMessage}/>
-
+        <div className="center">
+            <AddDumpster onAddDumpster= {onAddDumpster} addDumpstersErrorMessage= {addDumpstersErrorMessage}/>
+        </div>
+        
         <div className= 'table-container'>
             {tableHeader}
             <div>

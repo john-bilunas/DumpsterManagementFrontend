@@ -1,3 +1,23 @@
+
+:root{
+  --primary: #007bff;
+  --primary-hover: #0056b3;
+  --background: #f8f9fa;
+  --surface: #ffffff;
+  --text: #333333;
+  --secondary: #343a40;
+  --secondary-hover: #495057;
+  --borders-and-dividers: #dddddd;
+  --corners: 8px;
+}
+#root{
+  margin: 0 0;
+  /* background-color: rgba(246, 188, 251, 0.454); */
+  height: 100%;
+  color: var(--text);
+
+  
+}
 body {
   margin: 0px 0px;
   padding: 0px 0px;
@@ -7,74 +27,162 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  font-size: 18px;
+  font-size: 18px; 
+  background-color: var(--background);
+  margin: 2%;
 }
-
-#root{
-  margin: 0 0;
-  /* background-color: rgba(246, 188, 251, 0.454); */
-  height: 100%;
-  
-}
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-h2{
+h1,h2,h3,h4,h5,h6{
+  color: var(--primary);
   text-align: center;
 }
+
 nav ul{
   display: flex;
-  justify-content: start;
+  justify-content: center;
   list-style: none;
-  margin: 0;
+  background-color: var(--secondary);
+  border-radius: var(--corners);
+  /* margin: 10px; */
+  
+  /* padding: 10px; */
 }
 nav ul li{
-  padding-left: 2em;
+  padding: 1em;
+  color: var(--background);
 }
+nav ul li a{
+  color: white;
+  text-decoration: none;
+}
+
+/* major containers */
+.surface{
+  background-color: var(--surface);
+  /* margin: 3%; */
+  border-radius: var(--corners);
+  box-shadow: 0 0 10px 1px var(--borders-and-dividers);
+}
+#inventory-and-pricing-container{
+  display: flex;
+  justify-content: space-between;
+}
+.individual-inventory-and-pricing-containers{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 48%;
+}
+
+
+/* display tables */
 .table-row{
   display: flex;
   justify-content: center;
   text-align:center;
   font-size: 1em;
-  border-bottom:  solid 1px lightgray;
-  border-left:  solid 1px lightgray;
-  border-right:  solid 1px lightgray;
-  margin: 0 1em;
+  border-bottom:  solid 1px var(--borders-and-dividers);
+  border-left:  solid 1px var(--borders-and-dividers);
+  border-right:  solid 1px var(--borders-and-dividers);
+  margin: 0 3%;
 }
 .table-row:first-child{
-  border-top:  solid 1px lightgray;
+  border-top:  solid 1px var(--borders-and-dividers);
 }
 .inventory-row div{
 width: 33%;
 }
+.table-row div{
+  display: flex;
+  justify-content: center;
+  align-items: center;;
+}
 /* keep after table-row */
 .row-header{
-  margin: 1em 2em;
+  margin-top: 30px;
+  padding: 10px 0px;
+  font-size: 1.2em;
   font-weight: bold;
   border: none;
+  background-color: var(--primary);
+
+  color: var(--background);
 }
 .row-header:first-child{
   border: none;
 }
-
-#add-form{
-  /* border: solid 1px black; */
+.center{
   display: flex;
   justify-content: center;
 }
-.inventory-and-pricing-containers{
+.add-form{
+  /* border: solid 1px black; */
+  background-color: var(--background);
+  padding: 20px;
+  border-radius: var(--corners);
+  box-shadow: 0 0 10px 1px var(--borders-and-dividers);
+  
+}
+.add-form form label{
+  color: var(--secondary);
+  font-weight: bold;
+}
+
+#add-item label{
+  display: inline-block;
+  /* background-color: black; */
+  width: 100px;
+}
+#add-dumpster{
+  min-width: 200px;
+}
+.add-form form{
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 50%
+  align-items: center;
 }
-.side-by-side{
-  display: flex;
-  justify-content: space-between;
+input, select{
+  border: unset;
+  border: solid 1px var(--borders-and-dividers);
+  min-width: 170px;
+  height: 2em;
+  border-color: var(--borders-and-dividers);
+  border-radius: 3px;
+  margin: 5px 0px;
+  padding: 0px 8px;
 }
+/* select {
+  display: inline-block;
+  padding: unset;
+  margin: unset;
+  width: 190px;
+  height: 2em;
+  border-color: var(--borders-and-dividers);
+} */
 
 .table-container{
   /* background-color:rgba(132, 207, 254, 0.162) */
+  /* border: solid 1px var(--borders-and-dividers); */
+  /* margin: 3%; */
 }
+
+button{
+  all:unset;
+  padding: 5% 5%;
+  background-color: var(--primary);
+  color: var(--background);
+  font-size: .8em;;
+  /* font-weight: bold; */
+  border-radius: 5px;
+  margin: 8px;
+
+}
+button:hover{
+  background-color: var(--primary-hover);
+  cursor: pointer;
+
+}
+

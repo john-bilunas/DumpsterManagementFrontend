@@ -7,7 +7,7 @@ const InventoryAndPricing = () => {
     
   return (
 
-    <div className= 'side-by-side'>
+    <div id= 'inventory-and-pricing-container'>
         <Inventory/>
         <Pricing/>
     </div>
