@@ -30,7 +30,7 @@ const Pricing = () => {
                 } else{
                     setItemList(data.message);
                     setAllItemsErrorMessage('');
-                    setAddItemErrorMessage(data.message);
+                    setAddItemErrorMessage('');
                 }
             // Set error message to display to users what went wrong.
             }catch(err){
@@ -105,6 +105,7 @@ const Pricing = () => {
             }
             const addResponse = await fetch(`${process.env.REACT_APP_API_URL}/items`, options);
             const addData = await addResponse.json();
+            console.log('add data error message:', addData)
             // Check for any errors from the server
             if(addData.errorMessage) throw new Error(addData.errorMessage);
             // Update state for dumpsters and remove possible previous error messages
@@ -112,7 +113,7 @@ const Pricing = () => {
             setItemList((prevList) => [...prevList, addData.message])
             return 'Success!';
         }catch(err){
-            setAddItemErrorMessage(err.errorMessage);
+            setAddItemErrorMessage(err.message);
             return;
         }
     }   
@@ -135,13 +136,15 @@ const Pricing = () => {
             });
     }
 
-
+    console.log('addItemErrorMessage', addItemErrorMessage);
   return (
 
     <div className= 'individual-inventory-and-pricing-containers surface'>
         <h2>Pricing</h2>
-        <div className="center">
-            <AddItem allItemCategoriesList= {allItemCategoriesList} onAddItem= {onAddItem}/>
+        <div className="form-container">
+            <AddItem allItemCategoriesList= {allItemCategoriesList} onAddItem= {onAddItem} addItemErrorMessage= {addItemErrorMessage}/>
+            {/* <p className="error center">{addItemErrorMessage}</p> */}
+            {addItemErrorMessage.length !== 0 ? (<p className="error center">{addItemErrorMessage}</p>) : <></>}
         </div>
         <div className= 'table-container'>
             {tableHeader}

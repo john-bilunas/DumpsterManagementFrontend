@@ -1,10 +1,10 @@
 import React,{useState} from 'react'
 
-const AddItem = ({allItemCategoriesList, onAddItem}) => {
+const AddItem = ({allItemCategoriesList, onAddItem, addItemErrorMessage}) => {
 
-        const [categoryId, setCategoryId] = useState(undefined);
-        const [name, setName] = useState();
-        const [price, setPrice] = useState();
+        const [categoryId, setCategoryId] = useState(-1);
+        const [name, setName] = useState('');
+        const [price, setPrice] = useState('');
         const [current, setCurrent] = useState(true);
 
         const categoryOptions = allItemCategoriesList.map( (cat) => {
@@ -12,7 +12,7 @@ const AddItem = ({allItemCategoriesList, onAddItem}) => {
         });
         // name, price, current, category_id
 
-        console.log({name, price, current, categoryId})
+        // console.log({name, price, current, categoryId})
         return (
           <div className= "add-form">
               <form id= "add-item">
@@ -45,11 +45,7 @@ const AddItem = ({allItemCategoriesList, onAddItem}) => {
                       }
                   }}>Add Dumpster</button>
                   
-              {/* <button type= "submit" onClick= { async (e) => {
-                  e.preventDefault();
-                  const addResponse = await onAddDumpster(size);
-                  if(addResponse === 'Success!') setSize(0);
-              }}>Add Dumpster</button> */}
+                  {/* <p className="error">{addItemErrorMessage}</p> */}
               </form>
           </div>
           

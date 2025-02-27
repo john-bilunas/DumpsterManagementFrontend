@@ -67,9 +67,9 @@ const Inventory = () => {
             }
             const addResponse = await fetch(`${process.env.REACT_APP_API_URL}/dumpsters`, options);
             const addData = await addResponse.json();
-            console.log('pre');
+            console.log('ret: ', addData);
             // Check for any errors from the server
-            if(addData.errorMessage) throw new Error(addData.errorMessage);
+            if(addData && addData.errorMessage) throw new Error(addData.errorMessage);
             console.log('post');
             // Update state for dumpsters and remove possible previous error messages
             
@@ -78,17 +78,20 @@ const Inventory = () => {
             setDumpsterList((prevList) => [...prevList, addData.message])
             return 'Success!';
         }catch(err){
-            setAddDumpstersErrorMessage(err.errorMessage);
+            console.log('err:', err.message);
+            setAddDumpstersErrorMessage(err.message);
             return;
         }
     }
 
+    console.log('error message', addDumpstersErrorMessage)
   return (
 
     <div className= 'individual-inventory-and-pricing-containers surface'>
         <h2>Inventory</h2>
-        <div className="center">
+        <div className="form-container">
             <AddDumpster onAddDumpster= {onAddDumpster} addDumpstersErrorMessage= {addDumpstersErrorMessage}/>
+            {addDumpstersErrorMessage.length !== 0? (<p className="error center">{addDumpstersErrorMessage}</p>) : <></>}
         </div>
         
         <div className= 'table-container'>
