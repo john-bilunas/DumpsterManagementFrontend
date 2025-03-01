@@ -1,8 +1,70 @@
-import React from 'react'
-
+import React, {useState, useEffect} from 'react'
+import CustomerListItem from './Customers/CustomerListItem';
 const Customers = () => {
+
+  // State
+  const [customersList, setCustomersList] = useState([]);
+  const [customersListErrorMessage, setCustomersListErrorMessage] = useState('');
+
+  // Fetch all customers in useEffect once
+  useEffect( () => {
+
+    //create function to perform fetch
+    const fetchAllCustomers = async () => {
+
+      try{
+        const results = await fetch(`${process.env.REACT_APP_API_URL}/customers`);
+        const data = await results.json();
+
+        if(data && data.errorMessage){
+          throw new Error(data.errorMessage);
+        }else{
+          //set state of customers list and reset any errors
+          setCustomersList(data.message);
+          setCustomersListErrorMessage('');
+        }
+      }catch(err){
+
+        //set error state
+        setCustomersListErrorMessage(err.message)
+        }
+    }
+    fetchAllCustomers();
+
+  }, []);
+
+
+
+    // Create the "table" header for the rows that are being displayed for the list of customers
+  const tableHeader = ((
+    <div className= 'table-row row-header inventory-row'>
+      <div className= 'customer-name-column'>Name</div>
+      <div className= 'customer-phone-column'>Phone</div>
+      <div className= 'customer-email-column'>Email</div>
+      <div className= 'customer-address-column'>Addresses</div>
+    </div>         
+  ));
+
+    // Create the rows to be displayed about each dumpster
+    let tableRows;
+    if(Array.isArray(customersList) && customersList.length > 0){
+      tableRows = customersList.map( (row) => {
+        return (<CustomerListItem key= {row.id} id= {row.id} row= {row} header={false}/>)
+      });
+    }
+
+  console.log('Customers list: ', customersList)
   return (
-    <div>Customers</div>
+    <div className= 'full-page-width-containers surface'>
+      <h2>Customers</h2>
+      <div className= 'table-container'>
+            {tableHeader}
+            <div>
+                {tableRows}
+            </div>
+        </div>
+    </div>
+    
   )
 }
 

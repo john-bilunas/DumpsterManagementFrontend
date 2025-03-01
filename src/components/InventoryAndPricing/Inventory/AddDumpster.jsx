@@ -12,8 +12,8 @@ const AddDumpster = ({onAddDumpster, addDumpstersErrorMessage}) => {
             {/* name, price, current, category_id */}
             <div className= 'inputs'>
                 <div className="input">
-                    <label htmlFor=""> Size: </label>
-                    <input type="number"  value={size} onChange= { (e) => {setSize(e.target.value)}}min= "0" max= "100"/>
+                    <label htmlFor="size"> Size: </label>
+                    <input type="number" id= "size" name= "size"  value={size} onChange= { (e) => {setSize(e.target.value)}}min= "0" max= "100"/>
                 </div>
                 
             </div>

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 
 const InventoryListItem = (props) => {
     
-    const {header} = props;
+    // const {header} = props;
     const [id] = useState(props.id);
     const [size, setSize] = useState(props.size);
     const [isActive, setIsActive] = useState(props.isActive);
@@ -42,9 +42,9 @@ const InventoryListItem = (props) => {
 
   return (
     <div className= 'table-row inventory-row'>
-        <div>{id}</div>
-        <div>{size}</div>
-        <div>
+        <div className= 'inventory-dumpster-column'>{id}</div>
+        <div className= 'inventory-size-column'>{size}</div>
+        <div className= 'inventory-active-column'>
             <span>{isActive === 1? ('Yes') : ('No')}</span>
             <button onClick= {onChangeActiveStatus}>{isActive === 1 ? ('Deactivate') : ('Activate')}</button>
 

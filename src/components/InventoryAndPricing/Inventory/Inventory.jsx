@@ -40,9 +40,9 @@ const Inventory = () => {
     // Create the "table" header for the rows that are being displayed for the list of dumpsters
     const tableHeader = ((
         <div className= 'table-row row-header inventory-row'>
-            <div>Dumpster Number</div>
-            <div>Size</div>
-            <div>Active</div>
+            <div className= 'inventory-dumpster-column'>Dumpster Number</div>
+            <div className= 'inventory-size-column'>Size</div>
+            <div className= 'inventory-active-column'>Active</div>
         </div>         
     ));
     // Create the rows to be displayed about each dumpster
@@ -94,7 +94,7 @@ const Inventory = () => {
             {addDumpstersErrorMessage.length !== 0? (<p className="error center">{addDumpstersErrorMessage}</p>) : <></>}
         </div>
         
-        <div className= 'table-container'>
+        <div >
             {tableHeader}
             <div>
                 {tableRows}

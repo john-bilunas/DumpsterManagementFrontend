@@ -121,9 +121,9 @@ const Pricing = () => {
     // Create the "table" header for the rows that are being displayed for the list of dumpsters
     const tableHeader = ((
         <div className= 'table-row row-header inventory-row'>
-            <div>Name</div>
-            <div>Price</div>
-            <div>Archive</div>
+            <div className= 'pricing-name-column'>Name</div>
+            <div className= 'pricing-price-column'>Price</div>
+            <div className= 'pricing-archive-column'>Archive</div>
         </div>         
     ));
 
