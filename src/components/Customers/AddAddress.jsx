@@ -23,13 +23,11 @@ const AddAddress = ({onAddAddress, setIsAddAddress}) => {
     const [apt, setApt] = useState('');
 
 
-  return (
-
-    
+  return (    
 
     <div className="form-container add-address">
         <div  className= "add-form">
-        <form id= "add-item">
+        <form id= "add-address">
             {/* name, price, current, category_id */}
             <div className= 'inputs'>
                 <div className="input">
@@ -44,26 +42,49 @@ const AddAddress = ({onAddAddress, setIsAddAddress}) => {
                       <label htmlFor="city"> City: </label>
                       <input type="text" id= 'city' value={city} name= 'city' required onChange= { (e) => {setCity(e.target.value)}}/>
                 </div>
-                <div className="input">
+                {/* <div className="input">
                       <label htmlFor="state"> State: </label>
                       <input type="text" id= 'state' value={state} name= 'state' required onChange= { (e) => {setState(e.target.value)}}/>
-                </div>
+                </div> */}
+                <div className="input">
+                    <label htmlFor="state"> State: </label>
+                        <select name="state" id="state" onChange={(e) => { setState(e.target.value); }}>
+                            <option>Please select a state...</option>
+                            <option value={'CT'} >Connecticut</option>                      
+                            <option value={'MA'} >Massachusetts</option>
+                            <option value={'NH'} >New Hampshire</option>
+                            <option value={'RI'} >Rhode Island</option>
+                        </select>
+                    </div>
                 <div className="input">
                       <label htmlFor="zip"> Zip code: </label>
-                      <input type="text" id= 'zip' value={zip} name= 'zip'  onChange= { (e) => {setZip(e.target.value)}}/>
+                      <input type="text" id= 'zip' value={zip} name= 'zip'  placeholder= "optional" onChange= { (e) => {setZip(e.target.value)}}/>
                 </div>
                 <div className="input">
                       <label htmlFor="apt"> Apt.: </label>
-                      <input type="text" id= 'apt' value={apt} name= 'apt'  onChange= { (e) => {setApt(e.target.value)}}/>
+                      <input type="text" id= 'apt' value={apt} name= 'apt'  placeholder= "optional" onChange= { (e) => {setApt(e.target.value)}}/>
                 </div>
             </div>
-            <div>
+            <div className= "button-options">
             <button type= "submit" onClick= { async (e) => {
                     e.preventDefault();
-                    const addResponse = await onAddAddress();
+                    const addResponse = await onAddAddress({
+                        house_number: houseNumber.length === 0? null : houseNumber,
+                        street_name: street.length === 0? null : street,
+                        city: city.length === 0? null : city,
+                        state: state.length === 0? null : state,
+                        zip: zip.length === 0? null : zip,
+                        apt: apt.length === 0? null : apt,
+                    });
                     if(addResponse === 'Success!'){
                         // Reset state
-                        // setSize(0);
+                        setHouseNumber('');
+                        setStreet('');
+                        setCity('');
+                        setState('');
+                        setZip('');
+                        setApt('');
+                        
                     } 
                 }}>Add Address</button>
                 <button className= "close" type= "submit" onClick= { () => {
@@ -77,5 +98,22 @@ const AddAddress = ({onAddAddress, setIsAddAddress}) => {
     
   )
 }
+/*
+Structure
+    id - auto increment
+    customer_id - FK
+    house_number - string (could use number, but just to cover anything strange/uncommon)
+    street_name - string
+    city - string
+    state - 2 characters
+    zip - 5 characters
+    apt - string (20 character max)
 
+        const [houseNumber, setHouseNumber] = useState('');
+    const [street, setStreet] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [zip, setZip] = useState('');
+    const [apt, setApt] = useState('');
+*/
 export default AddAddress;

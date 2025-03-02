@@ -37,7 +37,11 @@ const AddItem = ({allItemCategoriesList, onAddItem, addItemErrorMessage}) => {
                   </div>
                   <button type= "submit" onClick= { async (e) => {
                       e.preventDefault();
-                      const addResponse = await onAddItem({name, price, current, category_id: categoryId});
+                      const addResponse = await onAddItem({
+                        name: name.length === 0? null : name, 
+                        price: price.length === 0? null : price, 
+                        current: current.length === 0? null : current, 
+                        category_id: categoryId});
                       if(addResponse === 'Success!'){
                         //reset state
                         setName('');

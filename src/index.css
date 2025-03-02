@@ -10,6 +10,7 @@
   --borders-and-dividers: #dddddd;
   --corners: 8px;
   --error: #bd0000d9;
+  --success: #28a745;
 }
 #root{
   margin: 0 0;
@@ -28,7 +29,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  font-size: 18px; 
+  font-size: 16px; 
   background-color: var(--background);
   margin: 2%;
 }
@@ -92,12 +93,15 @@ nav ul li a{
 .table-row{
   display: flex;
   justify-content: left;
+  align-items: center;
   text-align:left;
   font-size: 1em;
   border-bottom:  solid 1px var(--borders-and-dividers);
   border-left:  solid 1px var(--borders-and-dividers);
   border-right:  solid 1px var(--borders-and-dividers);
   margin: 0 3%;
+  padding: 2%;
+  position: relative;
 }
 .table-row:first-child{
   border-top:  solid 1px var(--borders-and-dividers);
@@ -105,11 +109,24 @@ nav ul li a{
 /* .inventory-row div{
 width: 33%;
 } */
-.table-row div{
+ .row-extension-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+ .row-display-content{
   display: flex;
   justify-content: left;
   align-items: center;
   text-align: left;
+  position: relative;
+ }
+.row-additional-content{
+  display: flex;
+  justify-content: center;
+}
+.cell{
+  
 }
 /* keep after table-row */
 .row-header{
@@ -125,6 +142,8 @@ width: 33%;
 .row-header:first-child{
   border: none;
 }
+
+
 
 /* Individual columns */
 .customer-name-column{
@@ -210,17 +229,25 @@ pricing-archive-column
   /* background-color: black; */
   width: 100px;
 }
+#add-address label{
+  display: inline-block;
+  /* background-color: black; */
+  width: 150px;
+}
+#add-customer label{
+  display: inline-block;
+  /* background-color: black; */
+  width: 150px;
+}
 .add-form form{
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 400px;;
 }
 #add-dumpster{
   min-width: 200px;
 }
-/* #add-address{
-  min-width: 300px;
-} */
 
 input, select{
   border: unset;
@@ -266,14 +293,17 @@ input, select{
   /* border: solid 1px var(--borders-and-dividers); */
   /* margin: 3%; */
 }
-
+.button-options{
+  display: flex;
+  justify-content: space-around;
+} 
 button{
   all:unset;
   padding: 5% 5%;
   background-color: var(--primary);
   color: white;
-  font-size: .8em;;
-  /* font-weight: bold; */
+  font-size: 1em;;
+  font-weight: bold;
   border-radius: 5px;
   margin: 8px;
   min-width: 85px;
@@ -291,3 +321,67 @@ button:hover{
   font-weight: bold;
 }
 
+.add-symbol{
+  color: var(--success);
+  height: 40px
+}
+.save-icon{
+  height: 40px;
+  width: 40px;
+  color: var(--success);
+}
+.undo-icon{
+
+  height: 40px;
+  width: 40px;
+  /* margin-left:10px; */
+}
+.edit-icon{
+  height: 40px;
+  width: 40px;
+  position:relative;
+  color:#fd7e14;
+}
+.edit-button:hover{
+  cursor: pointer;
+  /* background-color: #0056b3; */
+
+}
+.edit-button{
+  width: 40px;
+  width: 40px;
+  z-index: 1;
+}
+.edit-button *{
+  width: 100%;
+  height: 100%;
+  
+
+
+}
+.add-button-and-label-container{
+  display: flex;
+}
+.add-button{
+  all: unset;
+  display: flex;
+  align-items: center;
+}
+.add-button:hover{
+  all: unset;
+  cursor: pointer;
+  height: 40px;
+}
+.add-label{
+  display: flex;
+  align-items: center;;
+}
+
+.test{
+  display: flex;
+  justify-content: left;
+  align-items: start;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}

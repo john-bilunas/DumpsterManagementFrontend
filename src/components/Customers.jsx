@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import CustomerListItem from './Customers/CustomerListItem';
+import AddCustomer from './Customers/AddCustomer';
 const Customers = () => {
 
   // State
   const [customersList, setCustomersList] = useState([]);
   const [customersListErrorMessage, setCustomersListErrorMessage] = useState('');
 
+  const[addCustomerErrorMessage, setAddCustomerErrorMessage] = useState('');
   // Fetch all customers in useEffect once
   useEffect( () => {
 
@@ -49,14 +51,55 @@ const Customers = () => {
     let tableRows;
     if(Array.isArray(customersList) && customersList.length > 0){
       tableRows = customersList.map( (row) => {
-        return (<CustomerListItem key= {row.id} id= {row.id} row= {row} header={false}/>)
+        return (<CustomerListItem key= {row.id} id= {row.id} row= {row} header={false} customersList={customersList} setCustomersList= {setCustomersList}/>)
       });
     }
+/*
+    Structure
+    first_name - string
+    last_name - string
+    phone -10 characters
+    email - string
+*/
+    const onAddCustomer = async({first_name, last_name, phone, email }) => {
+
+      try{
+
+          const options = {
+              method: 'POST',
+              headers: {
+                  'Content-type': 'application/json'
+              },
+              body: JSON.stringify({first_name, last_name, phone, email })
+          }
+          const addResponse = await fetch(`${process.env.REACT_APP_API_URL}/customers`, options);
+          const addData = await addResponse.json();
+          console.log('add data error message:', addData)
+          // Check for any errors from the server
+          if(addData.errorMessage) throw new Error(addData.errorMessage);
+          // Update state for dumpsters and remove possible previous error messages
+          setAddCustomerErrorMessage('');
+          //Update the displayed customers to include the new one
+            setCustomersList( (prev) => {
+              return [...prev, addData.message];
+            })
+          
+
+          return 'Success!';
+      }catch(err){
+        console.log('in error')
+        setAddCustomerErrorMessage(err.message);
+          return;
+      }
+
+    } 
+
 
   console.log('Customers list: ', customersList)
   return (
     <div className= 'full-page-width-containers surface'>
       <h2>Customers</h2>
+    <AddCustomer onAddCustomer= {onAddCustomer}/>
       <div className= 'table-container'>
             {tableHeader}
             <div>
