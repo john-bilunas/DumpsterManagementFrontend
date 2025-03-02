@@ -1,7 +1,7 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
-import InventoryAndPricing from './components/InventoryAndPricing';
+import InventoryAndPricing from './components/InventoryAndPricing/InventoryAndPricing';
 import Customers from './components/Customers';
 import Rentals from './components/Rentals';
 import Header from './components/Header';
