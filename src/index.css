@@ -100,7 +100,7 @@ nav ul li a{
   border-left:  solid 1px var(--borders-and-dividers);
   border-right:  solid 1px var(--borders-and-dividers);
   margin: 0 3%;
-  padding: 2%;
+  padding: 2% 0;
   position: relative;
 }
 .table-row:first-child{
@@ -109,7 +109,7 @@ nav ul li a{
 /* .inventory-row div{
 width: 33%;
 } */
- .row-extension-container{
+ .entire-row-container{
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -120,13 +120,14 @@ width: 33%;
   align-items: center;
   text-align: left;
   position: relative;
+  margin: 0px
  }
 .row-additional-content{
   display: flex;
   justify-content: center;
 }
 .cell{
-  
+  padding: 0px
 }
 /* keep after table-row */
 .row-header{
@@ -146,6 +147,34 @@ width: 33%;
 
 
 /* Individual columns */
+.rental-name-column{
+  width: 13%;
+  padding-left: 2%;
+}
+.rental-dropoff-column{
+  width: 9%;
+  padding-left: 1%;
+}
+.rental-pickup-column{
+  width: 9%;
+  padding-left: 1%;
+}
+.rental-address-column{
+  width: 19%;
+  padding-left: 1%;
+}
+.rental-dumpster-column{
+  width: 9%;
+  padding-left: 1%;
+}
+.rental-phone-column{
+  width: 14%;
+  padding-left: 1%;
+}
+.rental-email-column{
+  width: 19%;
+  padding-left: 1%;
+}
 .customer-name-column{
   width: 20%;
   padding-left: 2%;
@@ -388,7 +417,7 @@ button:hover{
   align-items: center;;
 }
 
-.test{
+.top-left-icon{
   display: flex;
   justify-content: left;
   align-items: start;

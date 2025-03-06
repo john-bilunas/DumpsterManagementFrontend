@@ -94,7 +94,6 @@ const CustomerListItem = (props) => {
       if (address.apt !== null) addressText += `${address.apt}, `;
       addressText += `${address.city}, ${address.state} `;
       if (address.zip !== null) addressText += `${address.zip}`;
-      // console.log(addressText)
       return <li>{addressText}</li>;
     });
   }
@@ -186,10 +185,9 @@ const CustomerListItem = (props) => {
       setUpdateCustomerErrorMessage(err.errorMessage);
     }
   };
-  console.log(isEdit);
   return (
     <div className="table-row">
-      <div className="test">
+      <div className="top-left-icon">
         {isEdit ? (
           <>
             <div className="edit-button" onClick={onUpdateCustomer}>
@@ -206,15 +204,8 @@ const CustomerListItem = (props) => {
         )}
       </div>
 
-      <div className="row-extension-container">
+      <div className="entire-row-container">
         <div className="row-display-content">
-          {/* {isEdit? 
-                <>
-                <span className= 'edit-button' onClick={() => {}}>{saveIcon}</span>
-                <span className= 'edit-button' onClick={() => setIsEdit((prev) => !prev)}>{undoIcon}</span>
-                </>:
-                <span className= 'edit-button' onClick={() => setIsEdit((prev) => !prev)}>{editIcon}</span>} */}
-
           <div className="cell customer-name-column">{`${firstName} ${lastName}`}</div>
           {!isEdit ? (
             <>
