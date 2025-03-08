@@ -51,6 +51,7 @@ const Rentals = () => {
           dumpster={dumpster}
           phone={phone}
           email={email}
+          rental_id={rental.rental_id}
         />
       );
     });
@@ -75,7 +76,7 @@ const Rentals = () => {
     };
     getAllRentals();
   }, []);
-  console.log('all rentals: ', rentals);
+  // console.log('all rentals: ', rentals);
   return (
     <div className="full-page-width-containers surface">
       <h2>Rentals</h2>

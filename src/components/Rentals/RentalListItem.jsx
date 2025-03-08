@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from 'react';
-
-const RentalListItem = ({ fullName, dropoff, pickup, address, dumpster, phone, email }) => {
+import AddRentalItem from './AddRentalItem';
+const RentalListItem = ({
+  fullName,
+  dropoff,
+  pickup,
+  address,
+  dumpster,
+  phone,
+  email,
+  rental_id,
+}) => {
   // Possible useEffect for when dates change to handle update.
 
   const trashIcon = (
@@ -53,7 +62,9 @@ const RentalListItem = ({ fullName, dropoff, pickup, address, dumpster, phone, e
           <div className="cell rental-phone-column">{phone}</div>
           <div className="cell rental-email-column">{email}</div>
         </div>
-        <div className="row-additional-content"></div>
+        <div className="row-additional-content">
+          <AddRentalItem rental_id={rental_id} />
+        </div>
       </div>
     </div>
   );
