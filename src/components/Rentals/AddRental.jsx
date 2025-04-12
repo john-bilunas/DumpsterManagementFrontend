@@ -323,8 +323,13 @@ const AddRental = ({ rentals, setRentals }) => {
               <button
                 type="submit"
                 onClick={(e) => {
-                  e.preventDefault();
-                  onAddRental();
+                  try {
+                    e.preventDefault();
+                    onAddRental();
+                    setCustomer('-1');
+                    setAddress('-1');
+                    setLockedinDumpster('Check availability to add.');
+                  } catch (err) {}
                 }}
               >
                 Book Rental

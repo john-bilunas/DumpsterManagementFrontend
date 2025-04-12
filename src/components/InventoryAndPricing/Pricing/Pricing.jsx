@@ -51,6 +51,7 @@ const Pricing = () => {
         if (data.errorMessage) {
           throw Error(data.errorMessage);
         } else {
+          console.log('all categories: ', data.message);
           setallItemCategoriesErrorMessage('');
           setAllItemCategoriesList(data.message);
         }

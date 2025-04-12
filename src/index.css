@@ -114,6 +114,9 @@ width: 33%;
   flex-direction: column;
   width: 100%;
 }
+.toggle-row{
+  padding-bottom: 20px;
+}
  .row-display-content{
   display: flex;
   justify-content: left;
@@ -124,7 +127,17 @@ width: 33%;
  }
 .row-additional-content{
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  margin: 0 40px
+}
+/* .rental-additional-content{
+  display: flex;
+  justify-content: space space-around;
+} */
+.rental-additional-content div, p{
+  width: 50%;
+  /* padding: 20px */
+  
 }
 .cell{
   padding: 0px
@@ -263,6 +276,11 @@ pricing-archive-column
   /* background-color: black; */
   width: 150px;
 }
+#add-rental-item label{
+  display: inline-block;
+  /* background-color: black; */
+  width: 150px;
+}
 #add-customer label{
   display: inline-block;
   /* background-color: black; */
@@ -308,7 +326,15 @@ input, select{
 .add-address{
   padding: 4% 0;
 }
-
+.add-rental-item, table{
+  padding: 4% 0;
+}
+.add-rental-item{
+  width: 100%
+}
+table{
+  padding: 40px 0px;
+}
 .close{
   color: rgb(41, 41, 41);
   background-color: rgba(255, 0, 0, 0.68);
@@ -424,4 +450,46 @@ button:hover{
   position: absolute;
   top: 0px;
   left: 0px;
+}
+
+.invoice-container{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center
+}
+.invoice-container table{
+  width: 50%;
+  margin: 0 50px;
+}
+.invoice-message{
+  text-align: center;
+  font-weight: bold;
+}
+tr{
+  padding: 0px;
+  margin: 0px;
+  height: 20px;
+}
+
+.total-row{
+  font-weight: bold;
+}
+.toggle-icon{
+  display: flex;
+  justify-content: left;
+  align-items: start;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+}
+.toggle{
+  
+  text-align: center;
+  color: var(--primary);
+  font-weight: bold;
+}
+.toggle:hover{
+  cursor: pointer;
 }

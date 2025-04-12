@@ -128,7 +128,7 @@ const AddItem = ({ rental_id }) => {
   // console.log('itemCategoriesList', itemCategoriesList);
   // console.log('itemsByCategory', itemsByChosenCategory);
   return (
-    <div className="form-container add-address">
+    <div className="form-container add-rental-item">
       <div className="add-form">
         <form id="add-address">
           {/* name, price, current, category_id */}
@@ -163,7 +163,7 @@ const AddItem = ({ rental_id }) => {
             </div>
             {/* Quantity */}
             <div className="quantity">
-              <label htmlFor="quantity"> Drop off date: </label>
+              <label htmlFor="quantity"> Quantity: </label>
               <input
                 type="number"
                 id="quantity"

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AddRentalItem from './AddRentalItem';
+import DisplayInvoice from './DisplayInvoice';
 const RentalListItem = ({
   fullName,
   dropoff,
@@ -33,6 +34,25 @@ const RentalListItem = ({
     </svg>
   );
 
+  const [isShowInvoice, setIsShowInvoice] = useState(false);
+  const onGetRentalItems = async (id, setItems) => {
+    try {
+      const results = await fetch(`${process.env.REACT_APP_API_URL}/rentalItems/${id}`);
+      const data = await results.json();
+
+      if (data && data.errorMessage) {
+        throw new Error(data.errorMessage);
+      } else {
+        //set state of customers list and reset any errors
+        setItems(data.message);
+        // setErrorMessage('');
+      }
+    } catch (err) {
+      //set error state
+      //   setErrorMessage(err.message);
+    }
+  };
+
   return (
     <div className="table-row">
       {/* <div className="top-left-icon">
@@ -51,8 +71,17 @@ const RentalListItem = ({
           </div>
         )}
       </div> */}
-      <div className="top-left-icon"></div>
-      <div className="entire-row-container">
+      <div className="toggle-icon">
+        <span
+          className="toggle"
+          onClick={() => {
+            setIsShowInvoice((prev) => !prev);
+          }}
+        >
+          {isShowInvoice === false ? 'Show invoice' : 'Hide invoice'}
+        </span>
+      </div>
+      <div className="entire-row-container toggle-row">
         <div className="row-display-content">
           <div className="cell rental-name-column">{fullName}</div>
           <div className="cell rental-dropoff-column">{dropoff}</div>
@@ -62,9 +91,14 @@ const RentalListItem = ({
           <div className="cell rental-phone-column">{phone}</div>
           <div className="cell rental-email-column">{email}</div>
         </div>
-        <div className="row-additional-content">
-          <AddRentalItem rental_id={rental_id} />
-        </div>
+        {isShowInvoice === false ? (
+          <> </>
+        ) : (
+          <div className="row-additional-content rental-additional-content">
+            <AddRentalItem rental_id={rental_id} />
+            <DisplayInvoice onGetRentalItems={onGetRentalItems} rental_id={rental_id} />
+          </div>
+        )}
       </div>
     </div>
   );
