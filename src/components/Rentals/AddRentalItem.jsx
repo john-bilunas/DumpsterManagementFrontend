@@ -92,27 +92,29 @@ const AddItem = ({ rental_id }) => {
 
   const onAddRentalIten = async () => {
     try {
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          rental_id,
-          item_id: chosenItem,
-          quantity: quantity,
-        }),
-      };
-      const addResponse = await fetch(`${process.env.REACT_APP_API_URL}/rentalItems`, options);
-      const addData = await addResponse.json();
-      console.log('add data error message:', addData);
-      // Check for any errors from the server
-      if (addData.errorMessage) throw new Error(addData.errorMessage);
-      // Update state for dumpsters and remove possible previous error messages
-      setAddRentalItemErrorMessage('');
-      // setRentals((prevList) => [...prevList, addData.message]);
-      console.log('Success adding a rental.');
-      return 'Success!';
+      if (quantity > 0) {
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
+            rental_id,
+            item_id: chosenItem,
+            quantity: quantity,
+          }),
+        };
+        const addResponse = await fetch(`${process.env.REACT_APP_API_URL}/rentalItems`, options);
+        const addData = await addResponse.json();
+        console.log('add data error message:', addData);
+        // Check for any errors from the server
+        if (addData.errorMessage) throw new Error(addData.errorMessage);
+        // Update state for dumpsters and remove possible previous error messages
+        setAddRentalItemErrorMessage('');
+        // setRentals((prevList) => [...prevList, addData.message]);
+        console.log('Success adding a rental.');
+        return 'Success!';
+      }
     } catch (err) {
       console.log('Error adding rental: ', err.message);
       setAddRentalItemErrorMessage(err.message);
@@ -148,34 +150,43 @@ const AddItem = ({ rental_id }) => {
               </select>
             </div>
             {/* Choose an item */}
-            <div className="input">
-              <label htmlFor="item"> Item: </label>
-              <select
-                name="item"
-                id="item"
-                onChange={(e) => {
-                  setChosenItem(e.target.value);
-                }}
-              >
-                <option value={-1}>Please select an item category...</option>
-                {itemsByChosenCategory}
-              </select>
-            </div>
+            {chosenCategory === -1 ? (
+              <></>
+            ) : (
+              <div className="input">
+                <label htmlFor="item"> Item: </label>
+                <select
+                  name="item"
+                  id="item"
+                  onChange={(e) => {
+                    setChosenItem(e.target.value);
+                  }}
+                >
+                  <option value={-1}>Please select an item category...</option>
+                  {itemsByChosenCategory}
+                </select>
+              </div>
+            )}
             {/* Quantity */}
-            <div className="quantity">
-              <label htmlFor="quantity"> Quantity: </label>
-              <input
-                type="number"
-                id="quantity"
-                value={quantity}
-                name="quantity"
-                min="0"
-                max="100"
-                onChange={(e) => {
-                  setQuantity(e.target.value);
-                }}
-              />
-            </div>
+
+            {chosenItem === -1 ? (
+              <></>
+            ) : (
+              <div className="input">
+                <label htmlFor="quantity"> Quantity: </label>
+                <input
+                  type="number"
+                  id="quantity"
+                  value={quantity}
+                  name="quantity"
+                  min="0"
+                  max="100"
+                  onChange={(e) => {
+                    setQuantity(e.target.value);
+                  }}
+                />
+              </div>
+            )}
           </div>
           <div className="button-options">
             {/*  rental_id, item_id, quantity*/}
