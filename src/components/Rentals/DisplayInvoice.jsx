@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const DisplayInvoice = ({ onGetRentalItems, rental_id }) => {
+const DisplayInvoice = ({ onGetRentalItems, rental_id, fetchSwitch }) => {
   const [items, setItems] = useState([]);
   const [tableRows, setTableRows] = useState([]);
   useEffect(() => {
@@ -8,12 +8,13 @@ const DisplayInvoice = ({ onGetRentalItems, rental_id }) => {
       await onGetRentalItems(rental_id, setItems);
     };
     getItems();
-  }, []);
+  }, [onGetRentalItems, rental_id, fetchSwitch]);
 
+  // This useEffect is used to create the table rows for the invoice
   useEffect(() => {
     let total = 0;
     const itemRows = items.map((el) => {
-      total += el.price;
+      total += el.price * el.quantity;
       return (
         <tr>
           <td>{el.name}</td>
@@ -22,7 +23,7 @@ const DisplayInvoice = ({ onGetRentalItems, rental_id }) => {
         </tr>
       );
     });
-
+    // this is used to add the total row to the end of the table
     itemRows.push(
       <tr className="total-row">
         <td>Total</td>

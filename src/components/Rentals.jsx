@@ -100,7 +100,7 @@ const Rentals = () => {
       <SearchBar searchText={filterText} setSearchText={setFilterText} />
       <div className="table-container">
         {tableHeader}
-        <div>{tableRows}</div>
+        <div className="table-body-container">{tableRows}</div>
       </div>
     </div>
   );

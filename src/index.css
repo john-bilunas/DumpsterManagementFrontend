@@ -358,10 +358,13 @@ table{
   border-color: var(--borders-and-dividers);
 } */
 
-.table-container{
+.table-body-container{
   /* background-color:rgba(132, 207, 254, 0.162) */
   /* border: solid 1px var(--borders-and-dividers); */
   /* margin: 3%; */
+  overflow-x: auto;
+  max-height: 500px;
+
 }
 .button-options{
   display: flex;

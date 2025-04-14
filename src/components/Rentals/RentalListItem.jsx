@@ -34,6 +34,13 @@ const RentalListItem = ({
     </svg>
   );
 
+  //switch is used to determine if the invoice needs to be updated in the interface
+  const [fetchSwitch, setFetchSwitch] = useState(false);
+
+  const flipSwitch = () => {
+    setFetchSwitch((prev) => !prev);
+  };
+
   const [isShowInvoice, setIsShowInvoice] = useState(false);
   const onGetRentalItems = async (id, setItems) => {
     try {
@@ -95,8 +102,12 @@ const RentalListItem = ({
           <> </>
         ) : (
           <div className="row-additional-content rental-additional-content">
-            <AddRentalItem rental_id={rental_id} />
-            <DisplayInvoice onGetRentalItems={onGetRentalItems} rental_id={rental_id} />
+            <AddRentalItem rental_id={rental_id} flipSwitch={flipSwitch} />
+            <DisplayInvoice
+              onGetRentalItems={onGetRentalItems}
+              rental_id={rental_id}
+              fetchSwitch={fetchSwitch}
+            />
           </div>
         )}
       </div>

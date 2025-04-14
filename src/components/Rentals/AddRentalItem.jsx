@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const AddItem = ({ rental_id }) => {
+const AddItem = ({ rental_id, flipSwitch }) => {
   // rental_id, item_id, quantity
 
   //   const [rentalId, setRentalId] = useState(-1);
@@ -118,6 +118,8 @@ const AddItem = ({ rental_id }) => {
         setAddRentalItemErrorMessage('');
         // setRentals((prevList) => [...prevList, addData.message]);
         console.log('Success adding a rental.');
+        // change the state that determines when the data is fetched.
+        await flipSwitch();
         return 'Success!';
       } else {
         throw new Error('Please enter a quantity greater than 0.');
