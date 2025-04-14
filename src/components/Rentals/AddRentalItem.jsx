@@ -18,6 +18,10 @@ const AddItem = ({ rental_id }) => {
   const [categoryOptions, setCategoryOptions] = useState([]);
 
   const [addRentalItemErrorMessage, setAddRentalItemErrorMessage] = useState('');
+
+  console.log('item list', itemList);
+  console.log('item categories list', itemCategoriesList);
+
   // useEffect to get all items
   useEffect(() => {
     const fetchAllItems = async () => {
@@ -91,6 +95,7 @@ const AddItem = ({ rental_id }) => {
   }, [chosenCategory, itemList]);
 
   const onAddRentalIten = async () => {
+    console.log('adding rental item.');
     try {
       if (quantity > 0) {
         const options = {
@@ -106,7 +111,7 @@ const AddItem = ({ rental_id }) => {
         };
         const addResponse = await fetch(`${process.env.REACT_APP_API_URL}/rentalItems`, options);
         const addData = await addResponse.json();
-        console.log('add data error message:', addData);
+        console.log('add data message:', addData);
         // Check for any errors from the server
         if (addData.errorMessage) throw new Error(addData.errorMessage);
         // Update state for dumpsters and remove possible previous error messages
@@ -114,6 +119,8 @@ const AddItem = ({ rental_id }) => {
         // setRentals((prevList) => [...prevList, addData.message]);
         console.log('Success adding a rental.');
         return 'Success!';
+      } else {
+        throw new Error('Please enter a quantity greater than 0.');
       }
     } catch (err) {
       console.log('Error adding rental: ', err.message);
@@ -141,6 +148,7 @@ const AddItem = ({ rental_id }) => {
               <select
                 name="item-category"
                 id="item-category"
+                value={chosenCategory}
                 onChange={(e) => {
                   setChosenCategory(e.target.value);
                 }}
