@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import CustomerListItem from './Customers/CustomerListItem';
 import AddCustomer from './Customers/AddCustomer';
+import SearchBar from './Util/SearchBar';
 const Customers = () => {
   // State
   const [customersList, setCustomersList] = useState([]);
   const [customersListErrorMessage, setCustomersListErrorMessage] = useState('');
 
   const [addCustomerErrorMessage, setAddCustomerErrorMessage] = useState('');
+
+  const [filterText, setFilterText] = useState('');
   // Fetch all customers in useEffect once
   useEffect(() => {
     //create function to perform fetch
@@ -43,18 +46,26 @@ const Customers = () => {
   // Create the rows to be displayed about each dumpster
   let tableRows;
   if (Array.isArray(customersList) && customersList.length > 0) {
-    tableRows = customersList.map((row) => {
-      return (
-        <CustomerListItem
-          key={row.id}
-          id={row.id}
-          row={row}
-          header={false}
-          customersList={customersList}
-          setCustomersList={setCustomersList}
-        />
-      );
-    });
+    tableRows = customersList
+      .filter((el) => {
+        return (
+          `${el.first_name} ${el.last_name}`.toLowerCase().includes(filterText.toLowerCase()) ||
+          el.email.toLowerCase().includes(filterText.toLowerCase()) ||
+          el.phone.includes(filterText)
+        );
+      })
+      .map((row) => {
+        return (
+          <CustomerListItem
+            key={row.id}
+            id={row.id}
+            row={row}
+            header={false}
+            customersList={customersList}
+            setCustomersList={setCustomersList}
+          />
+        );
+      });
   }
   /*
     Structure
@@ -97,6 +108,7 @@ const Customers = () => {
     <div className="full-page-width-containers surface">
       <h2>Customers</h2>
       <AddCustomer onAddCustomer={onAddCustomer} />
+      <SearchBar searchText={filterText} setSearchText={setFilterText} />
       <div className="scrollable-table-container">
         <div className="table-container">
           {tableHeader}

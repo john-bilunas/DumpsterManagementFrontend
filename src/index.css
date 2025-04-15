@@ -109,7 +109,7 @@ nav ul li a{
   margin: 0px;
   /* margin-left: var(--table-margin);
   margin-right:var(--table-margin); */
-  padding: 2% 0;
+  padding: 1% 0;
   position: relative;
 }
 .table-row:first-child{
@@ -348,6 +348,7 @@ table{
 .multi-button{
   display: flex;
   justify-content: space-around;
+  
 }
 /* select {
   display: inline-block;
@@ -357,6 +358,7 @@ table{
   height: 2em;
   border-color: var(--borders-and-dividers);
 } */
+
 .scrollable-table-container{
   overflow: auto;
   /* min-width: 1200px;; */
@@ -364,7 +366,6 @@ table{
   margin-right:var(--table-margin);
 }
 .table-container{
-  
   min-width: 1200px;
   overflow: hidden;
 

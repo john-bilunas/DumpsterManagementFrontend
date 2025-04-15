@@ -99,9 +99,11 @@ const CustomerListItem = (props) => {
   }
 
   console.log('row', props.row);
-  const phoneFormat = `${phone.slice(0, 1)}-${phone.slice(1, 4)}-${phone.slice(4, 7)}-${phone.slice(
-    -4
-  )}`;
+
+  const phoneFormat =
+    phone && phone.length === 10
+      ? `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`
+      : phone || '';
 
   // Parent event handler
   const onAddAddress = async ({ house_number, street_name, city, state, zip, apt }) => {
