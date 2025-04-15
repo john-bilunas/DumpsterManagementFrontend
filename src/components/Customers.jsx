@@ -97,9 +97,11 @@ const Customers = () => {
     <div className="full-page-width-containers surface">
       <h2>Customers</h2>
       <AddCustomer onAddCustomer={onAddCustomer} />
-      <div className="table-container">
-        {tableHeader}
-        <div>{tableRows}</div>
+      <div className="scrollable-table-container">
+        <div className="table-container">
+          {tableHeader}
+          <div className="table-body-container">{tableRows}</div>
+        </div>
       </div>
     </div>
   );

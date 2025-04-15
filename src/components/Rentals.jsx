@@ -98,9 +98,11 @@ const Rentals = () => {
 
       <AddRental rentals={rentals} setRentals={setRentals} />
       <SearchBar searchText={filterText} setSearchText={setFilterText} />
-      <div className="table-container">
-        {tableHeader}
-        <div className="table-body-container">{tableRows}</div>
+      <div className="scrollable-table-container">
+        <div className="table-container">
+          {tableHeader}
+          <div className="table-body-container">{tableRows}</div>
+        </div>
       </div>
     </div>
   );

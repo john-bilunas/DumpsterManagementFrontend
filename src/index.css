@@ -107,8 +107,8 @@ nav ul li a{
   border-left:  solid 1px var(--borders-and-dividers);
   border-right:  solid 1px var(--borders-and-dividers);
   margin: 0px;
-  margin-left: var(--table-margin);
-  margin-right:var(--table-margin);
+  /* margin-left: var(--table-margin);
+  margin-right:var(--table-margin); */
   padding: 2% 0;
   position: relative;
 }
@@ -357,14 +357,23 @@ table{
   height: 2em;
   border-color: var(--borders-and-dividers);
 } */
+.scrollable-table-container{
+  overflow: auto;
+  /* min-width: 1200px;; */
+  margin-left: var(--table-margin);
+  margin-right:var(--table-margin);
+}
+.table-container{
+  
+  min-width: 1200px;
+  overflow: hidden;
 
+}
 .table-body-container{
-  /* background-color:rgba(132, 207, 254, 0.162) */
-  /* border: solid 1px var(--borders-and-dividers); */
-  /* margin: 3%; */
-  overflow-x: auto;
-  max-height: 500px;
-
+  max-height: 1000px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
 }
 .button-options{
   display: flex;
