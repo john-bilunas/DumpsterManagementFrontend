@@ -197,16 +197,20 @@ width: 33%;
   width: 19%;
   padding-left: 1%;
 }
+.customer-edit-column{
+  width: 8%;
+  padding-left: 2%;
+}
 .customer-name-column{
-  width: 20%;
+  width: 18%;
   padding-left: 2%;
 }
 .customer-phone-column{
-  width: 20%;
+  width: 13%;
   padding-left: 1%;
 }
 .customer-email-column{
-  width: 23%;
+  width: 22%;
   padding-left: 1%;
 }
 .customer-address-column{
@@ -509,4 +513,9 @@ tr{
 }
 .toggle:hover{
   cursor: pointer;
+}
+.side-by-side{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

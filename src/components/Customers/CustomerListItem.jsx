@@ -190,7 +190,7 @@ const CustomerListItem = (props) => {
   return (
     <div className="table-row">
       <div className="top-left-icon">
-        {isEdit ? (
+        {/* {isEdit ? (
           <>
             <div className="edit-button" onClick={onUpdateCustomer}>
               {saveIcon}
@@ -203,12 +203,30 @@ const CustomerListItem = (props) => {
           <div className="edit-button" onClick={() => setIsEdit((prev) => !prev)}>
             {editIcon}
           </div>
-        )}
+        )} */}
       </div>
 
       <div className="entire-row-container">
         <div className="row-display-content">
-          <div className="cell customer-name-column">{`${firstName} ${lastName}`}</div>
+          <div className="cell customer-edit-column">
+            {isEdit ? (
+              <div className="side-by-side">
+                <div className="edit-button" onClick={onUpdateCustomer}>
+                  {saveIcon}
+                </div>
+                <div className="edit-button" onClick={() => setIsEdit((prev) => !prev)}>
+                  {undoIcon}
+                </div>
+              </div>
+            ) : (
+              <div className="edit-button" onClick={() => setIsEdit((prev) => !prev)}>
+                {editIcon}
+              </div>
+            )}
+          </div>
+          <div className="cell customer-name-column">
+            <div>{`${firstName} ${lastName}`}</div>
+          </div>
           {!isEdit ? (
             <>
               <div className="cell customer-phone-column">{phoneFormat}</div>

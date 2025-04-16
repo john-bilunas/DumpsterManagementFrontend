@@ -36,6 +36,7 @@ const Customers = () => {
   // Create the "table" header for the rows that are being displayed for the list of customers
   const tableHeader = (
     <div className="table-row row-header inventory-row">
+      <div className="customer-edit-column"></div>
       <div className="customer-name-column">Name</div>
       <div className="customer-phone-column">Phone</div>
       <div className="customer-email-column">Email</div>
